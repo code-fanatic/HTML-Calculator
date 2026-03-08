@@ -1,0 +1,73 @@
+body {
+  /* Used for fonts and general background */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+  background: #333;
+  margin: 0;
+  display: flex; /* Use flexbox for centering */
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+.calculator {
+  margin-top: 10px;
+  width: 320px;
+  background: #222;
+  border-radius: 30px;
+  overflow: hidden;
+  min-height: 500px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.170);
+}
+.display {
+  background: #1c1c1c;
+  color: white; /* Text color */
+  font-size: 2rem;
+  text-align: right;
+  padding: 20px 10px;
+  height: 80px;
+}
+.buttons {
+  display: grid; /* Creates a grid layout */
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+  background: #444;
+  padding: 10px;
+}
+.button {
+  background: #555;
+  border: none;
+  padding: 20px;
+  font-size: 1.5rem;
+  color: white; /* Default text color */
+  cursor: pointer;
+  border-radius: 30px;
+  outline: none; /* Remove outline (desktop) */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.170);
+  transition: transform 0.1s;
+}
+/* Increase size on hover */
+.button:hover {
+  transform: scale(1.08);
+}
+.button:active {
+  background-color: #303030;
+  transform: scale(1);
+}
+.operator {
+  background: #ffa009;
+  /* Operator button color */
+}
+.operator:active {
+  background-color: #cc8000;
+  /* Color change when active */
+  transform: scale(1);
+}
+.zero {
+  grid-column: span 2;
+}
+.clear:hover {
+  background: #ff4c4c;
+}
+* {
+  /* Disables highlighting on tap (mobile)*/
+  -webkit-tap-highlight-color: transparent;
+}
