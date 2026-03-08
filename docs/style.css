@@ -3,7 +3,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
   background: #333;
   margin: 0;
-  display: flex; /* Use flexbox for centering */
+  display: flex; /* for centering */
   align-items: center;
   justify-content: center;
   height: 100vh;
@@ -19,14 +19,14 @@ body {
 }
 .display {
   background: #1c1c1c;
-  color: white; /* Text color */
+  color: white; /* text color */
   font-size: 2rem;
   text-align: right;
   padding: 20px 10px;
   height: 80px;
 }
 .buttons {
-  display: grid; /* Creates a grid layout */
+  display: grid; /* creates grid layout */
   grid-template-columns: repeat(4, 1fr);
   gap: 5px;
   background: #444;
@@ -37,14 +37,14 @@ body {
   border: none;
   padding: 20px;
   font-size: 1.5rem;
-  color: white; /* Default text color */
+  color: white; /* default text color */
   cursor: pointer;
   border-radius: 30px;
   outline: none; /* Remove outline (desktop) */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.170);
   transition: transform 0.1s;
 }
-/* Increase size on hover */
+/* increase size on hover */
 .button:hover {
   transform: scale(1.08);
 }
@@ -54,11 +54,11 @@ body {
 }
 .operator {
   background: #ffa009;
-  /* Operator button color */
+  /* operator button color */
 }
 .operator:active {
   background-color: #cc8000;
-  /* Color change when active */
+  /* color change when active */
   transform: scale(1);
 }
 .zero {

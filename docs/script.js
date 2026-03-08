@@ -106,6 +106,7 @@ document.querySelectorAll(".button").forEach((button) => {
   });
 });
 
+// Keyboard Events
 document.addEventListener("keydown", (event) => {
   const key = event.key;
 
