@@ -1,243 +1,248 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>HTML Calculator</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML Calculator</title>
 
-        <style>
-            body {
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
-                background: #333;
-                margin: 0;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                height: 100vh;
-            }
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+        background: #333;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
 
-            .calculator {
-                margin-top: 10px;
-                width: 320px;
-                background: #222;
-                border-radius: 30px;
-                overflow: hidden;
-                min-height: 500px;
-            }
+      .calculator {
+        margin-top: 10px;
+        width: 320px;
+        background: #222;
+        border-radius: 30px;
+        overflow: hidden;
+        min-height: 500px;
+      }
 
-            .display {
-                background: #1c1c1c;
-                color: white;
-                font-size: 2rem;
-                text-align: right;
-                padding: 20px 10px;
-                height: 80px;
-            }
+      .display {
+        background: #1c1c1c;
+        color: white;
+        font-size: 2rem;
+        text-align: right;
+        padding: 20px 10px;
+        height: 80px;
+      }
 
-            .buttons {
-                display: grid;
-                grid-template-columns: repeat(4, 1fr);
-                gap: 5px;
-                background: #444;
-                padding: 10px;
-            }
+      .buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 5px;
+        background: #444;
+        padding: 10px;
+      }
 
-            .button {
-                background: #555;
-                border: none;
-                padding: 20px;
-                font-size: 1.5rem;
-                color: white;
-                cursor: pointer;
-                border-radius: 30px;
-                outline: none;
-                transition: transform 0.1s;
-            }
+      .button {
+        background: #555;
+        border: none;
+        padding: 20px;
+        font-size: 1.5rem;
+        color: white;
+        cursor: pointer;
+        border-radius: 30px;
+        outline: none;
+        transition: transform 0.1s;
+      }
 
-            .button:hover {
-                transform: scale(1.1);
-            }
+      .button:hover {
+        transform: scale(1.1);
+      }
 
-            .button:active {
-                transform: scale(0.9);
-            }
+      .button:active {
+        background-color: #303030;
+        transform: scale(0.95);
+      }
 
-            .operator {
-                background: #ffa009;
-            }
+      .operator {
+        background: #ffa009;
+      }
 
-            .zero {
-                grid-column: span 2;
-            }
+      .operator:active {
+        background-color: #cc8000;
+        transform: scale(0.95);
+      }
 
-            .clear:hover {
-                background: red;
-            }
-        </style>
-    </head>
+      .zero {
+        grid-column: span 2;
+      }
 
-    <body>
-        <div class="calculator">
-            <div class="display" id="display">0</div>
+      .clear:hover {
+        background: #ff4c4c;
+      }
+    </style>
+  </head>
 
-            <div class="buttons">
-                <button class="button clear">AC</button>
-                <button class="button">+/-</button>
-                <button class="button">%</button>
-                <button class="button operator">÷</button>
+  <body>
+    <div class="calculator">
+      <div class="display" id="display">0</div>
 
-                <button class="button">7</button>
-                <button class="button">8</button>
-                <button class="button">9</button>
-                <button class="button operator">×</button>
+      <div class="buttons">
+        <button class="button clear">AC</button>
+        <button class="button">+/-</button>
+        <button class="button">%</button>
+        <button class="button operator">÷</button>
 
-                <button class="button">4</button>
-                <button class="button">5</button>
-                <button class="button">6</button>
-                <button class="button operator">-</button>
+        <button class="button">7</button>
+        <button class="button">8</button>
+        <button class="button">9</button>
+        <button class="button operator">×</button>
 
-                <button class="button">1</button>
-                <button class="button">2</button>
-                <button class="button">3</button>
-                <button class="button operator">+</button>
+        <button class="button">4</button>
+        <button class="button">5</button>
+        <button class="button">6</button>
+        <button class="button operator">-</button>
 
-                <button class="button zero">0</button>
-                <button class="button">.</button>
-                <button class="button operator">=</button>
-            </div>
-        </div>
+        <button class="button">1</button>
+        <button class="button">2</button>
+        <button class="button">3</button>
+        <button class="button operator">+</button>
 
-        <script>
-            const display = document.getElementById("display");
+        <button class="button zero">0</button>
+        <button class="button">.</button>
+        <button class="button operator">=</button>
+      </div>
+    </div>
 
-            let currentOperand = "";
-            let previousOperand = "";
-            let operator = null;
-            let shouldResetScreen = false;
+    <script>
+      const display = document.getElementById("display");
 
-            function appendNumber(number) {
-                if (shouldResetScreen) {
-                    currentOperand = "";
-                    shouldResetScreen = false;
-                }
+      let currentOperand = "";
+      let previousOperand = "";
+      let operator = null;
+      let shouldResetScreen = false;
 
-                if (currentOperand === "0") currentOperand = "";
-                if (currentOperand.includes(".") && number === ".") return;
+      function appendNumber(number) {
+        if (shouldResetScreen) {
+          currentOperand = "";
+          shouldResetScreen = false;
+        }
 
-                currentOperand += number;
+        if (currentOperand === "0") currentOperand = "";
+        if (currentOperand.includes(".") && number === ".") return;
 
-                updateDisplay();
-            }
+        currentOperand += number;
 
-            function chooseOperator(op) {
-                if (currentOperand === "") return;
+        updateDisplay();
+      }
 
-                if (previousOperand !== "") {
-                    calculate();
-                }
+      function chooseOperator(op) {
+        if (currentOperand === "") return;
 
-                operator = op;
-                previousOperand = currentOperand;
-                currentOperand = "";
-            }
+        if (previousOperand !== "") {
+          calculate();
+        }
 
-            function calculate() {
-                const prev = parseFloat(previousOperand);
+        operator = op;
+        previousOperand = currentOperand;
+        currentOperand = "";
+      }
 
-                if (isNaN(prev) || isNaN(current)) return;
+      function calculate() {
+        const prev = parseFloat(previousOperand);
+        const current = parseFloat(currentOperand);
 
-                let result;
+        if (isNaN(prev) || isNaN(current)) return;
 
-                switch (operator) {
-                    case "+":
-                        result = prev + current;
-                        break;
+        let result;
 
-                    case "-":
-                        result = prev - current;
-                        break;
+        switch (operator) {
+          case "+":
+            result = prev + current;
+            break;
+          case "-":
+            result = prev - current;
+            break;
+          case "×":
+            result = prev * current;
+            break;
+          case "÷":
+            result = prev / current;
+            break;
+          default:
+            return;
+        }
 
-                    case "×":
-                        result = prev * current;
-                        break;
+        currentOperand = result.toString();
+        previousOperand = "";
+        shouldResetScreen = true;
 
-                    case "÷":
-                        result = prev / current;
-                        break;
+        updateDisplay();
+      }
 
-                    default:
-                        return;
-                }
+      function percent() {
+        if (currentOperand === "") return;
+        currentOperand = (parseFloat(currentOperand) / 100).toString();
+        updateDisplay();
+      }
 
-                previousOperand = "";
-                shouldResetScreen = true;
+      function updateDisplay() {
+        display.innerText = currentOperand || "0";
+      }
 
-                updateDisplay();
-            }
+      function clear() {
+        currentOperand = "";
+        previousOperand = "";
+        operator = null;
+        updateDisplay();
+      }
 
-            function percent() {
-                if (currentOperand === "") return;
-                currentOperand = (parseFloat(currentOperand) / 100).toString();
-                updateDisplay();
-            }
+      function backspace() {
+        currentOperand = currentOperand.slice(0, -1);
+        updateDisplay();
+      }
 
-            function updateDisplay() {
-                display.innerText = currentOperand || "0";
-            }
+      document.querySelectorAll(".button").forEach((button) => {
+        button.addEventListener("click", () => {
+          const value = button.innerText;
 
-            function clear() {
-                currentOperand = "";
-                previousOperand = "";
-                operator = null;
-                updateDisplay();
-            }
+          if (!isNaN(value) || value === ".") {
+            appendNumber(value);
+          } else if (value === "AC") {
+            clear();
+          } else if (value === "=") {
+            calculate();
+          } else if (value === "+/-") {
+            currentOperand = (parseFloat(currentOperand) * -1).toString();
+            updateDisplay();
+          } else if (value === "%") {
+            percent();
+          } else {
+            chooseOperator(value);
+          }
+        });
+      });
 
-            function backspace() {
-                currentOperand = currentOperand.slice(0, -1);
-                updateDisplay();
-            }
+      document.addEventListener("keydown", (event) => {
+        const key = event.key;
 
-            document.querySelectorAll(".button").forEach((button) => {
-                button.addEventListener("click", () => {
-                    const value = button.innerText;
+        if ("0123456789".includes(key)) {
+          appendNumber(key);
+        } else if (key === ".") {
+          appendNumber(".");
+        } else if (key === "+" || key === "-" || key === "*" || key === "/") {
+          chooseOperator(key === "*" ? "×" : key === "/" ? "÷" : key);
+        } else if (key === "Enter" || key === "=") {
+          calculate();
+        } else if (key === "Backspace") {
+          backspace();
+        } else if (key === "c" || key === "C") {
+          clear();
+        } else if (key === "%") {
+          percent();
+        }
+      });
+    </script>
 
-                    if (!isNaN(value) || value === ".") {
-                        appendNumber(value);
-                    } else if (value === "AC") {
-                        clear();
-                    } else if (value === "=") {
-                        calculate();
-                    } else if (value === "+/-") {
-                        currentOperand = (parseFloat(currentOperand) * -1).toString();
-                        updateDisplay();
-                    } else if (value === "%") {
-                        percent();
-                    } else {
-                        chooseOperator(value);
-                    }
-                });
-            });
-
-            document.addEventListener("keydown", (event) => {
-                const key = event.key;
-
-                if ("0123456789".includes(key)) {
-                    appendNumber(key);
-                } else if (key === ".") {
-                    appendNumber(".");
-                } else if (key === "+" || key === "-" || key === "*" || key === "/") {
-                    chooseOperator(key === "*" ? "×" : key === "/" ? "÷" : key);
-                } else if (key === "Enter" || key === "=") {
-                    calculate();
-                } else if (key === "Backspace") {
-                    backspace();
-                } else if (key === "c" || key === "C") {
-                    clear();
-                } else if (key === "%") {
-                    percent();
-                }
-            });
-        </script>
-    </body>
+  </body>
 </html>
